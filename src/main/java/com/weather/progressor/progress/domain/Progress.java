@@ -51,4 +51,15 @@ public class Progress {
         this.status = status;
     }
 
+    public static Progress of(int goal ,String title, Member member){
+        return Progress.builder()
+                .registDate(Instant.now())
+                .goal(goal)
+                .progress(0)
+                .title(title)
+                .member(member)
+                .status(ProgressStatus.OPENED)
+                .build();
+    }
+
 }
