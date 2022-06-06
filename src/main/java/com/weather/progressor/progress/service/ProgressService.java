@@ -2,11 +2,14 @@ package com.weather.progressor.progress.service;
 
 import com.weather.progressor.progress.domain.Progress;
 import com.weather.progressor.progress.domain.ProgressStatus;
+import com.weather.progressor.progress.dto.ProgressDto;
 import com.weather.progressor.progress.exception.ProgressNotFountException;
 import com.weather.progressor.progress.repository.ProgressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,4 +45,8 @@ public class ProgressService {
         progress.changeStatus(status);
     }
 
+    @Transactional(readOnly = true)
+    public List<ProgressDto> allProgress(Long memberId){
+        return progressRepository.findAllProgress(memberId);
+    }
 }

@@ -26,4 +26,12 @@ public class ProgressDetail {
     @ManyToOne
     @JoinColumn(name = "progress_id")
     private Progress progress;
+
+    public static ProgressDetail of(int progressSlice, Progress progress) {
+        return ProgressDetail.builder()
+                .recordAt(Instant.now())
+                .progressSlice(progressSlice)
+                .progress(progress)
+                .build();
+    }
 }
