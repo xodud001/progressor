@@ -62,9 +62,4 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/")
-    @ResponseBody
-    public String home(){
-        return "home";
-    }
 }
