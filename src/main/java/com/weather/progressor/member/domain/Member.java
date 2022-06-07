@@ -1,5 +1,7 @@
 package com.weather.progressor.member.domain;
 
+import com.weather.progressor.member.dto.FormSignInRequest;
+import com.weather.progressor.member.dto.FormSignUpRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,4 +24,18 @@ public class Member {
 
     @Column(name = "password")
     private String password;
+
+    public static Member of(FormSignInRequest form) {
+        return Member.builder()
+                .username(form.getUsername())
+                .password(form.getPassword())
+                .build();
+    }
+
+    public static Member of(FormSignUpRequest form) {
+        return Member.builder()
+                .username(form.getUsername())
+                .password(form.getPassword())
+                .build();
+    }
 }

@@ -19,9 +19,11 @@ spring:
         format_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
+  servlet:
+    session:
+      tracking-modes: cookie
 #logging.level:
 #  org.hibernate.SQL: debug
 #  org.hibernate.type : trace
-
 server:
   port: 8080
