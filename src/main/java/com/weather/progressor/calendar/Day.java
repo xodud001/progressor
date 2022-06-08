@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Day {
 
-    private int id;
+    private int year;
+    private int month;
     private int day;
 }

@@ -16,9 +16,10 @@ class MonthCalendarTest {
         long start = System.currentTimeMillis();
         MonthCalendar monthCalendar = MonthCalendar.create(date);
         System.out.printf("%dms\n", System.currentTimeMillis() - start);
-        monthCalendar.printWithId();
+        monthCalendar.printToCalendar();
+        System.out.println();
+        monthCalendar.printToList();
 
-        System.out.println(monthCalendar.getTodayIndex());
         assertThat(monthCalendar.getYear()).isEqualTo(2022);
         assertThat(monthCalendar.getMonthValue()).isEqualTo(6);
         assertThat(monthCalendar.getDays().size()).isEqualTo(6);
