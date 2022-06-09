@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/layout/base :: head(~{::link})}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/calendar.css}">
 </head>
 <body>
 <section class="main container-sm">
+
+    <header th:replace="~{/layout/header :: header}">
+
+    </header>
+
     <section class="title">
         <div class="date">
             <span th:text="|${calendar.year}년 ${calendar.monthValue}월|"></span>
@@ -20,8 +25,12 @@
         <div class="week" th:each="week : ${calendar.days}">
 
             <div class="day" th:each="day : ${week}">
-                <span th:text="${day.month}" ></span>
-                <span th:text="${day.day}" ></span>
+                <div th:class="'day-box'" th:classappend="${(day.isTargetMonth ? 'target-month ' : '')}">
+                    <div th:class="'today-box'" th:classappend="${(day.isToday ? 'today ' : '')}">
+                        <span th:text="${day.day}" class="month-value"></span>
+                    </div>
+                    <span>일</span>
+                </div>
             </div>
         </div>
     </section>

@@ -11,4 +11,5 @@ public class Day {
     private int month;
     private int day;
     private boolean isToday;
+    private boolean isTargetMonth;
 }

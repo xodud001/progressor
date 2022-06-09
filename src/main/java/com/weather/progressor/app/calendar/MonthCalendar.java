@@ -56,34 +56,54 @@ public class MonthCalendar implements Calendar{
         }
 
         LocalDate prevMonthStart = date.minusDays(dayOfWeekValue);
+        LocalDate today = DateUtil.today();
         int totalDaysForMonth = getTotalDaysForMonth(prevMonthStart);
         for(int i = prevMonthStart.getDayOfMonth(); i <= totalDaysForMonth ; i++){
-            Day day = new Day(prevMonthStart.getYear(), prevMonthStart.getMonthValue(), i, false);
+            Day day;
+
+            if(prevMonthStart.getYear() == today.getYear() && prevMonthStart.getMonthValue() == today.getMonthValue() && i == today.getDayOfMonth()) {
+                day = new Day(prevMonthStart.getYear(), prevMonthStart.getMonthValue(), i, true, false);
+            }else{
+                day = new Day(prevMonthStart.getYear(), prevMonthStart.getMonthValue(), i, false, false);
+            }
             days.add(day);
         }
     }
 
     private static void fillCurrentMonthDays(List<Day> days, LocalDate date) {
         int totalDaysForMonth = getTotalDaysForMonth(date);
-        LocalDate today = DateUtil.today();
-        for(int i = 1; i <= totalDaysForMonth; i++){
-            Day day;
 
-            if(today.getDayOfMonth() == i ){
-                day = new Day(date.getYear(), date.getMonthValue(), i, true);
-            }else{
-                day = new Day(date.getYear(), date.getMonthValue(), i, false);
-            }
+        for(int i = 1; i <= totalDaysForMonth; i++){
+            Day day = createCurrentDay(date, i);
             days.add(day);
         }
     }
 
     private static void fillNextMonthDays(List<Day> days, LocalDate date) {
         int rest = 42 - days.size();
+        LocalDate nextMont = LocalDate.of(date.getYear(), date.getMonthValue()+1, 1);
+        LocalDate today = DateUtil.today();
         for(int i = 1 ; i <= rest ; i++){
-            Day day = new Day(date.getYear(), date.getMonthValue()+1, i, false);
+            Day day;
+            if(nextMont.getYear() == today.getYear() && nextMont.getMonthValue() == today.getMonthValue() && i == today.getDayOfMonth()){
+                day = new Day(date.getYear(), date.getMonthValue()+1, i, true, false);
+            }else{
+                day = new Day(date.getYear(), date.getMonthValue()+1, i, false, false);
+            }
             days.add(day);
         }
+    }
+
+    private static Day createCurrentDay(LocalDate date, int i) {
+        LocalDate today = DateUtil.today();
+        Day day;
+
+        if(date.getYear() == today.getYear() && date.getMonthValue() == today.getMonthValue() && today.getDayOfMonth() == i){
+            day = new Day(date.getYear(), date.getMonthValue(), i, true, true);
+        }else{
+            day = new Day(date.getYear(), date.getMonthValue(), i, false, true);
+        }
+        return day;
     }
 
     private static int getFirstDayWeekValueOfMonth(LocalDate date) {

@@ -25,7 +25,6 @@ public class ProgressController {
         LocalDate today = DateUtil.today();
         LocalDate target = targetParam == null ? today : targetParam;
 
-        log.info("target={} targetDate={}", target, targetParam);
         MonthCalendar monthCalendar = MonthCalendar.create(target);
 
         model.addAttribute("calendar", monthCalendar);
