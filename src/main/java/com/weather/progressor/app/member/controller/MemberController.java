@@ -5,7 +5,6 @@ import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.member.dto.FormSignInRequest;
 import com.weather.progressor.app.member.dto.FormSignUpRequest;
 import com.weather.progressor.app.member.service.MemberService;
-import com.weather.progressor.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
 
     private final MemberService memberService;
-    private final SessionManager sessionManager;
 
     @GetMapping("/signIn")
     public String signInForm(Model model) {
@@ -36,7 +34,7 @@ public class MemberController {
         boolean isAuthorized = memberService.signIn(Member.of(form));
 
         if(isAuthorized){
-            sessionManager.createSession(session.getId(), form.getUsername());
+            session.setAttribute("username", form.getUsername());
             return "redirect:/";
         }else{
             return "member/signUpForm";

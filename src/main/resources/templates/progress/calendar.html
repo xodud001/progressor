@@ -10,9 +10,9 @@
             <span th:text="|${calendar.year}년 ${calendar.monthValue}월|"></span>
         </div>
         <div class="controller">
-            <a th:href="@{/(targetDate=${prev})}"> &lt; </a>
-            <a th:href="@{/(targetDate=${today})}"> Today </a>
-            <a th:href="@{/(targetDate=${next})}"> &gt; </a>
+            <a th:href="@{/calendar(targetDate=${prev})}"> &lt; </a>
+            <a th:href="@{/calendar(targetDate=${today})}"> Today </a>
+            <a th:href="@{/calendar(targetDate=${next})}"> &gt; </a>
         </div>
     </section>
 
@@ -20,9 +20,8 @@
         <div class="week" th:each="week : ${calendar.days}">
 
             <div class="day" th:each="day : ${week}">
-                <span th:text="${day.year}"></span>
-                <span th:text="${day.month}"></span>
-                <span th:text="${day.day}"></span>
+                <span th:text="${day.month}" ></span>
+                <span th:text="${day.day}" ></span>
             </div>
         </div>
     </section>

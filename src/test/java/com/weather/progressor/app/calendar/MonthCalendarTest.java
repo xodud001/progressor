@@ -12,7 +12,10 @@ class MonthCalendarTest {
     @DisplayName("1. 캘린더 생성 테스트")
     @Test
     void test1(){
-        LocalDate date = LocalDate.of(2022, 6, 1);
+        int year = 2022;
+        int month = 5;
+        int dayOfMonth = 10;
+        LocalDate date = LocalDate.of(year, month, dayOfMonth);
         long start = System.currentTimeMillis();
         MonthCalendar monthCalendar = MonthCalendar.create(date);
         System.out.printf("%dms\n", System.currentTimeMillis() - start);
@@ -20,8 +23,10 @@ class MonthCalendarTest {
         System.out.println();
         monthCalendar.printToList();
 
-        assertThat(monthCalendar.getYear()).isEqualTo(2022);
-        assertThat(monthCalendar.getMonthValue()).isEqualTo(6);
+        Day day = monthCalendar.getDays().get(5).get(6);
+        assertThat(day.getMonth()).isEqualTo(monthCalendar.getMonthValue() + 1);
+        assertThat(monthCalendar.getYear()).isEqualTo(year);
+        assertThat(monthCalendar.getMonthValue()).isEqualTo(month);
         assertThat(monthCalendar.getDays().size()).isEqualTo(6);
         assertThat(monthCalendar.getDays().get(0).size()).isEqualTo(7);
     }

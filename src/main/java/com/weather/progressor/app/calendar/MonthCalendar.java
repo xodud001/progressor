@@ -1,5 +1,6 @@
 package com.weather.progressor.app.calendar;
 
+import com.weather.progressor.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,11 +28,12 @@ public class MonthCalendar implements Calendar{
 
         List<Day> days = new ArrayList<>(42);
 
-        int dayOfWeekValue = getDayOfWeekValue(date.getDayOfWeek());
+        LocalDate firstDay = getFirstDay(date);
+        int dayOfWeekValue = getFirstDayWeekValueOfMonth(firstDay);
 
-        fillPrevMonthDays(days, date, dayOfWeekValue);
-        fillCurrentMonthDays(days, date);
-        fillNextMonthDays(days, date);
+        fillPrevMonthDays(days, firstDay, dayOfWeekValue);
+        fillCurrentMonthDays(days, firstDay);
+        fillNextMonthDays(days, firstDay);
 
         return new MonthCalendar(date.getYear(), date.getMonthValue(), CalendarType.Month, toDays(days));
     }
@@ -49,19 +51,29 @@ public class MonthCalendar implements Calendar{
     }
 
     private static void fillPrevMonthDays(List<Day> days, LocalDate date, int dayOfWeekValue) {
+        if(dayOfWeekValue == 0) { // 해당 달의 첫번째 일이 일요일이기 때문에 앞쪽에는 채울 필요 없
+            return;
+        }
+
         LocalDate prevMonthStart = date.minusDays(dayOfWeekValue);
         int totalDaysForMonth = getTotalDaysForMonth(prevMonthStart);
         for(int i = prevMonthStart.getDayOfMonth(); i <= totalDaysForMonth ; i++){
-            Day day = new Day(prevMonthStart.getYear(), prevMonthStart.getMonthValue(), i);
+            Day day = new Day(prevMonthStart.getYear(), prevMonthStart.getMonthValue(), i, false);
             days.add(day);
         }
     }
 
     private static void fillCurrentMonthDays(List<Day> days, LocalDate date) {
         int totalDaysForMonth = getTotalDaysForMonth(date);
-
+        LocalDate today = DateUtil.today();
         for(int i = 1; i <= totalDaysForMonth; i++){
-            Day day = new Day(date.getYear(), date.getMonthValue(), i);
+            Day day;
+
+            if(today.getDayOfMonth() == i ){
+                day = new Day(date.getYear(), date.getMonthValue(), i, true);
+            }else{
+                day = new Day(date.getYear(), date.getMonthValue(), i, false);
+            }
             days.add(day);
         }
     }
@@ -69,12 +81,20 @@ public class MonthCalendar implements Calendar{
     private static void fillNextMonthDays(List<Day> days, LocalDate date) {
         int rest = 42 - days.size();
         for(int i = 1 ; i <= rest ; i++){
-            Day day = new Day(date.getYear(), date.getMonthValue()+1, i);
+            Day day = new Day(date.getYear(), date.getMonthValue()+1, i, false);
             days.add(day);
         }
     }
 
-    private static int getDayOfWeekValue(DayOfWeek dayOfWeek) {
+    private static int getFirstDayWeekValueOfMonth(LocalDate date) {
+        return getDayOfWeekValue(date.getDayOfWeek());
+    }
+
+    private static LocalDate getFirstDay(LocalDate date) {
+        return LocalDate.of(date.getYear(), date.getMonthValue(), 1);
+    }
+
+    private static int getDayOfWeekValue(DayOfWeek dayOfWeek){
         return dayOfWeek.getValue() == 7 ? 0 : dayOfWeek.getValue();
     }
 

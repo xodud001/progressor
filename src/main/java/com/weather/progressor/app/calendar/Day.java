@@ -10,4 +10,5 @@ public class Day {
     private int year;
     private int month;
     private int day;
+    private boolean isToday;
 }
