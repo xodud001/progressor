@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/layout/base :: head(~{::link})}">
-    <link rel="stylesheet" th:href="@{/css/progress/main}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/main.css}">
 </head>
 <body>
 <section class="main container-sm">
     <section class="title">
-        <div>
-            2022년 6월
+        <div class="date">
+            <span th:text="|${calendar.year}년 ${calendar.monthValue}월|"></span>
         </div>
-        <div>
-            &gt; 오늘 &lt;
+        <div class="controller">
+            <a th:href="@{/(targetDate=${prev})}"> &lt; </a>
+            <a th:href="@{/(targetDate=${today})}"> Today </a>
+            <a th:href="@{/(targetDate=${next})}"> &gt; </a>
         </div>
     </section>
 
     <section class="calender">
+        <div class="week" th:each="week : ${calendar.days}">
 
+            <div class="day" th:each="day : ${week}">
+                <span th:text="${day.year}"></span>
+                <span th:text="${day.month}"></span>
+                <span th:text="${day.day}"></span>
+            </div>
+        </div>
     </section>
 
 </section>

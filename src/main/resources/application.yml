@@ -22,6 +22,9 @@ spring:
   servlet:
     session:
       tracking-modes: cookie
+
+  thymeleaf:
+    cache: false
 #logging.level:
 #  org.hibernate.SQL: debug
 #  org.hibernate.type : trace
