@@ -1,28 +1,42 @@
 @import "/css/common/common.css";
 
+.main{
+    padding-top: 40px;
+}
+
 .title{
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .title .date{
-    font-size: 32px;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
     font-weight: 500;
+    margin-right: 15px;
 }
 
 .title .controller{
-    margin-left: 5px;
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .title .controller a{
-    display: inline-block;
-    padding: 3px;
-    margin-left: 1px;
-    border: 1px solid #8d8d8d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #a0a0a0;
     font-size: 16px;
-    border-radius: 3px;
+    height: 25px;
+}
+
+.title .controller a:first-child, .title .controller a:last-child{
+    width: 25px;
+}
+
+.title .controller a:nth-child(2) {
+    width: 50px;
 }
 
 .calender{

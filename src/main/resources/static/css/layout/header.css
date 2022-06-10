@@ -19,9 +19,9 @@ header .left .logo{
 }
 
 header .left .logo .logo-title {
-    font-size: 28px;
-    font-weight: 500;
-    color: #55B3D9;
+    font-size: 24px;
+    font-weight: 700;
+    color: #482EF2;
 }
 
 header .left .gnb{
@@ -30,12 +30,31 @@ header .left .gnb{
 
 header .left .gnb li{
     margin-left: 30px;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     align-items: center;
 }
 
-header .right{
+header .left .gnb li a {
+    color: rgba(0, 0, 0, 0.6);
+    transition: all 0.15s ease-in;
+}
 
+header .left .gnb li a:hover{
+    color: black;
+}
+
+header .right{
+    display: flex;
+}
+
+header .right a{
+    border: 0px solid white !important;
+}
+
+header .right .sign-up{
+    background-color: #7663F2;
+    color: white;
+    margin-left: 10px;
 }
 

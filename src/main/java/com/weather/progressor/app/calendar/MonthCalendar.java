@@ -81,7 +81,7 @@ public class MonthCalendar implements Calendar{
 
     private static void fillNextMonthDays(List<Day> days, LocalDate date) {
         int rest = 42 - days.size();
-        LocalDate nextMont = LocalDate.of(date.getYear(), date.getMonthValue()+1, 1);
+        LocalDate nextMont = date.plusMonths(1L);
         LocalDate today = DateUtil.today();
         for(int i = 1 ; i <= rest ; i++){
             Day day;
