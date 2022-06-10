@@ -4,20 +4,20 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/progress/calendar.css}">
 </head>
 <body>
+
+<header th:replace="~{/layout/header :: header}">
+</header>
 <section class="main container-sm">
 
-    <header th:replace="~{/layout/header :: header}">
-
-    </header>
 
     <section class="title">
         <div class="date">
             <span th:text="|${calendar.year}년 ${calendar.monthValue}월|"></span>
         </div>
         <div class="controller">
-            <a th:href="@{/calendar(targetDate=${prev})}"> &lt; </a>
-            <a th:href="@{/calendar(targetDate=${today})}"> Today </a>
-            <a th:href="@{/calendar(targetDate=${next})}"> &gt; </a>
+            <a th:href="@{/progress/calendar(targetDate=${prev})}"> &lt; </a>
+            <a th:href="@{/progress/calendar(targetDate=${today})}"> Today </a>
+            <a th:href="@{/progress/calendar(targetDate=${next})}"> &gt; </a>
         </div>
     </section>
 

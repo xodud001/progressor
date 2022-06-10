@@ -1,0 +1,41 @@
+header {
+    border-bottom: 1px solid #e3e3e3;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) ;
+}
+
+header .header{
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    align-items: center;
+}
+
+header .left{
+    display: flex;
+}
+
+header .left .logo{
+    margin-right: 15px;
+}
+
+header .left .logo .logo-title {
+    font-size: 28px;
+    font-weight: 500;
+    color: #55B3D9;
+}
+
+header .left .gnb{
+    display: flex;
+}
+
+header .left .gnb li{
+    margin-left: 30px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+header .right{
+
+}
+
