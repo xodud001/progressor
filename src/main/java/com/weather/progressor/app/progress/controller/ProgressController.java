@@ -1,15 +1,15 @@
 package com.weather.progressor.app.progress.controller;
 
 import com.weather.progressor.app.calendar.MonthCalendar;
+import com.weather.progressor.app.progress.domain.Progress;
+import com.weather.progressor.app.progress.dto.CreateProgressRequest;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -22,7 +22,7 @@ public class ProgressController {
     private final ProgressService progressService;
 
     @GetMapping("/calendar")
-    public String home(@RequestParam(value = "targetDate", required = false) LocalDate targetParam, Model model){
+    public String calendar(@RequestParam(value = "targetDate", required = false) LocalDate targetParam, Model model){
 
         LocalDate today = DateUtil.today();
         LocalDate target = targetParam == null ? today : targetParam;
@@ -37,5 +37,29 @@ public class ProgressController {
         return "/progress/calendar";
     }
 
+    @GetMapping("/create")
+    public String createForm(Model model){
+
+        model.addAttribute("progress", new CreateProgressRequest());
+        return "/progress/createProgressForm";
+    }
+
+    @PostMapping("/create")
+    public String create(@ModelAttribute CreateProgressRequest request, Model model){
+
+        long savedId = progressService.openProgress(request);
+        return "redirect:/progress/"+savedId;
+    }
+
+    @GetMapping("/summary")
+    public String summary(){
+
+        return "/progress/summary";
+    }
+
+    @GetMapping("/{id}")
+    public String detail(@PathVariable("id") Long id){
+        return "";
+    }
 
 }

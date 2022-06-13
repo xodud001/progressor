@@ -6,23 +6,29 @@
 
 .title{
     display: flex;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    justify-content: space-between;
 }
 
-.title .date{
+.title .title-left{
+    display: flex;
+}
+
+.title .title-left .date{
     display: flex;
     align-items: center;
     font-size: 24px;
     font-weight: 500;
     margin-right: 15px;
+    width: 130px
 }
 
-.title .controller{
+.title .title-left .controller{
     display: flex;
     align-items: center;
 }
 
-.title .controller a{
+.title .title-left .controller a{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,12 +37,16 @@
     height: 25px;
 }
 
-.title .controller a:first-child, .title .controller a:last-child{
+.title .title-left .controller a:first-child, .title .controller a:last-child{
     width: 25px;
 }
 
-.title .controller a:nth-child(2) {
+.title .title-left .controller a:nth-child(2) {
     width: 50px;
+}
+
+.title .title-right{
+    display: flex;
 }
 
 .calender{

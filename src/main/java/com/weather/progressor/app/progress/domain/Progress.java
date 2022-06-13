@@ -2,6 +2,7 @@ package com.weather.progressor.app.progress.domain;
 
 
 import com.weather.progressor.app.member.domain.Member;
+import com.weather.progressor.app.progress.dto.CreateProgressRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,11 +26,11 @@ public class Progress {
 
     private Instant registDate;
 
-    private int goal; // 설정한 목표 수치
+    private int figure; // 설정한 목표 수치
 
     private int progress; // 진척도 현재 수치
 
-    private String title;
+    private String object;
 
     @Enumerated(STRING)
     private ProgressStatus status;
@@ -43,23 +44,27 @@ public class Progress {
     }
 
     public void modify(Progress progress) {
-        this.goal = progress.getGoal();
-        this.title = progress.getTitle();
+        this.figure = progress.getFigure();
+        this.object = progress.getObject();
     }
 
     public void changeStatus(ProgressStatus status) {
         this.status = status;
     }
 
-    public static Progress of(int goal ,String title, Member member){
+    public static Progress of(int figure ,String object, Member member){
         return Progress.builder()
                 .registDate(Instant.now())
-                .goal(goal)
+                .figure(figure)
                 .progress(0)
-                .title(title)
+                .object(object)
                 .member(member)
                 .status(ProgressStatus.OPENED)
                 .build();
+    }
+
+    public static Progress of(CreateProgressRequest request, Member member) {
+        return of(request.getGoalFigure(), request.getSubject(), member);
     }
 
 }

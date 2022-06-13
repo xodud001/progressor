@@ -15,7 +15,7 @@ import java.util.List;
 public class AllProgressResponse {
 
     private Long id;
-    private int goal;
+    private int object;
     private int progress;
     private String title;
     private float percent;

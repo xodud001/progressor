@@ -10,13 +10,23 @@
 <section class="main container-sm">
 
     <section class="title">
-        <div class="date">
-            <span th:text="|${calendar.year}년 ${calendar.monthValue}월|"></span>
+        <div class="title-left">
+            <div class="date">
+                <span th:text="|${calendar.year}년 ${calendar.monthValue}월|"></span>
+            </div>
+            <div class="controller">
+                <a th:href="@{/progress/calendar(targetDate=${prev})}"> &lt; </a>
+                <a th:href="@{/progress/calendar(targetDate=${today})}"> Today </a>
+                <a th:href="@{/progress/calendar(targetDate=${next})}"> &gt; </a>
+            </div>
         </div>
-        <div class="controller">
-            <a th:href="@{/progress/calendar(targetDate=${prev})}"> &lt; </a>
-            <a th:href="@{/progress/calendar(targetDate=${today})}"> Today </a>
-            <a th:href="@{/progress/calendar(targetDate=${next})}"> &gt; </a>
+        <div class="title-right">
+            <a class="btn btn-primary" th:href="@{/progress/createForm}">
+                생성하기
+            </a>
+            <a class="btn btn-primary">
+                기록하기
+            </a>
         </div>
     </section>
 

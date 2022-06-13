@@ -13,15 +13,15 @@ public class ProgressDto {
     private Long id;
     private int goal;
     private int progress;
-    private String title;
+    private String object;
     private ProgressStatus status;
 
     @QueryProjection
-    public ProgressDto(Long id, int goal, int progress, String title, ProgressStatus status) {
+    public ProgressDto(Long id, int goal, int progress, String object, ProgressStatus status) {
         this.id = id;
         this.goal = goal;
         this.progress = progress;
-        this.title = title;
+        this.object = object;
         this.status = status;
     }
 }

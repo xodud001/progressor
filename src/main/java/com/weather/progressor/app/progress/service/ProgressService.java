@@ -1,7 +1,9 @@
 package com.weather.progressor.app.progress.service;
 
+import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
+import com.weather.progressor.app.progress.dto.CreateProgressRequest;
 import com.weather.progressor.app.progress.dto.ProgressDto;
 import com.weather.progressor.app.progress.exception.ProgressNotFountException;
 import com.weather.progressor.app.progress.repository.ProgressRepository;
@@ -24,7 +26,8 @@ public class ProgressService {
                 .orElseThrow( () -> new ProgressNotFountException(id) );
     }
 
-    public long openProgress(Progress progress){
+    public long openProgress(CreateProgressRequest request){
+        Progress progress = Progress.of(request, Member.builder().username("EMTPY").password("EMPTY").build());
         Progress savedProgress = progressRepository.save(progress);
         return savedProgress.getId();
     }

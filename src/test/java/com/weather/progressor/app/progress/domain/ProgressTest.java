@@ -36,8 +36,8 @@ class ProgressTest {
 
         progress.modify(request);
 
-        assertThat(progress.getGoal()).isEqualTo(request.getGoal());
-        assertThat(progress.getTitle()).isEqualTo(request.getTitle());
+        assertThat(progress.getFigure()).isEqualTo(request.getFigure());
+        assertThat(progress.getObject()).isEqualTo(request.getObject());
     }
 
     @DisplayName("3. changeStatus() - Normal")
