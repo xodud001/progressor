@@ -2,6 +2,7 @@ package com.weather.progressor.app.member.controller;
 
 
 import com.weather.progressor.app.member.domain.Member;
+import com.weather.progressor.app.member.domain.SessionConst;
 import com.weather.progressor.app.member.dto.FormSignInRequest;
 import com.weather.progressor.app.member.dto.FormSignUpRequest;
 import com.weather.progressor.app.member.service.MemberService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -20,6 +22,11 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @GetMapping("/")
+    public String home(HttpServletResponse response) {
+        return "redirect:/progress/calendar";
+    }
 
     @GetMapping("/signIn")
     public String signInForm(Model model) {
@@ -31,13 +38,13 @@ public class MemberController {
     public String signIn(@ModelAttribute("member") FormSignInRequest form, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        boolean isAuthorized = memberService.signIn(Member.of(form));
+        Member loginMember = memberService.signIn(Member.of(form));
 
-        if(isAuthorized){
-            session.setAttribute("username", form.getUsername());
-            return "redirect:/";
+        if(loginMember != null){
+            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+            return "redirect:/progress/calendar";
         }else{
-            return "member/signUpForm";
+            return "member/signIpForm";
         }
 
     }

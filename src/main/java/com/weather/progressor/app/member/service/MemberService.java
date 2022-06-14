@@ -16,12 +16,16 @@ public class MemberService {
         return memberRepository.save(member).getId();
     }
 
-    public boolean signIn(Member member) {
+    public Member signIn(Member member) {
         Member findMember = memberRepository
                 .findByUsername(member.getUsername())
                 .orElse(MemberFactory.empty());
 
-        return checkPassword(member.getPassword(), findMember.getPassword());
+        if(checkPassword(member.getPassword(), findMember.getPassword())) {
+            return findMember;
+        }else{
+            return null;
+        }
     }
 
     private boolean checkPassword(String request, String target){

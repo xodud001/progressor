@@ -1,7 +1,6 @@
 package com.weather.progressor.app.progress.controller;
 
 import com.weather.progressor.app.calendar.MonthCalendar;
-import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.dto.CreateProgressRequest;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.util.DateUtil;
