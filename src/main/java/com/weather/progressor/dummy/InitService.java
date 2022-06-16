@@ -3,7 +3,6 @@ package com.weather.progressor.dummy;
 
 import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.progress.domain.Progress;
-import com.weather.progressor.app.progress.service.ProgressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +23,16 @@ public class InitService {
 
     private void progressInit(Member member) {
         Progress progress1 = Progress.of(1000, "팔굽펴혀기", member);
-        progress1.stackFigure(10);
+        progress1.stackProgress(100);
         em.persist(progress1);
 
-        em.persist(Progress.of(1000, "윗몸 일으키기", member));
-        em.persist(Progress.of(1000, "스쿼드", member));
+        Progress progress2 = Progress.of(1000, "윗몸 일으키기", member);
+        progress2.stackProgress(600);
+        em.persist(progress2);
+
+        Progress progress3 = Progress.of(1000, "스쿼드", member);
+        progress3.stackProgress(300);
+        em.persist(progress3);
 
     }
 

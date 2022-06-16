@@ -26,11 +26,11 @@ public class Progress {
 
     private Instant registDate;
 
-    private int figure; // 설정한 목표 수치
+    private int goal; // 설정한 목표 수치
 
     private int progress; // 진척도 현재 수치
 
-    private String object;
+    private String subject;
 
     @Enumerated(STRING)
     private ProgressStatus status;
@@ -44,20 +44,20 @@ public class Progress {
     }
 
     public void modify(Progress progress) {
-        this.figure = progress.getFigure();
-        this.object = progress.getObject();
+        this.goal = progress.getGoal();
+        this.subject = progress.getSubject();
     }
 
     public void changeStatus(ProgressStatus status) {
         this.status = status;
     }
 
-    public static Progress of(int figure ,String object, Member member){
+    public static Progress of(int goal ,String subject, Member member){
         return Progress.builder()
                 .registDate(Instant.now())
-                .figure(figure)
+                .goal(goal)
                 .progress(0)
-                .object(object)
+                .subject(subject)
                 .member(member)
                 .status(ProgressStatus.OPENED)
                 .build();
@@ -67,7 +67,7 @@ public class Progress {
         return of(request.getGoalFigure(), request.getSubject(), member);
     }
 
-    public void stackFigure(int figure) {
-        this.figure += Math.min(0, figure);
+    public void stackProgress(int progress) {
+        this.progress += Math.max(0, progress);
     }
 }

@@ -26,18 +26,18 @@ class ProgressTest {
     void test2(){
         Progress progress = Progress.builder()
                 .goal(100)
-                .title("테스트용 목표")
+                .subject("테스트용 목표")
                 .build();
 
         Progress request = Progress.builder()
                 .goal(200)
-                .title("업데이트용")
+                .subject("업데이트용")
                 .build();
 
         progress.modify(request);
 
-        assertThat(progress.getFigure()).isEqualTo(request.getFigure());
-        assertThat(progress.getObject()).isEqualTo(request.getObject());
+        assertThat(progress.getGoal()).isEqualTo(request.getGoal());
+        assertThat(progress.getSubject()).isEqualTo(request.getSubject());
     }
 
     @DisplayName("3. changeStatus() - Normal")

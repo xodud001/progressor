@@ -22,9 +22,9 @@ public class ProgressRepositoryImpl implements ProgressQueryRepository{
 
         return queryFactory.select(new QProgressDto(
                     p.id,
-                    p.figure,
+                    p.goal,
                     p.progress,
-                    p.object,
+                    p.subject,
                     p.status
                 )).from(p)
                 .where(p.member.id.eq(memberId))

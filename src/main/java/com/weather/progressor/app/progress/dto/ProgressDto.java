@@ -3,10 +3,12 @@ package com.weather.progressor.app.progress.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 @Builder
 public class ProgressDto {
 
@@ -15,6 +17,7 @@ public class ProgressDto {
     private int progress;
     private String object;
     private ProgressStatus status;
+    private int percent;
 
     @QueryProjection
     public ProgressDto(Long id, int goal, int progress, String object, ProgressStatus status) {
@@ -23,5 +26,6 @@ public class ProgressDto {
         this.progress = progress;
         this.object = object;
         this.status = status;
+        this.percent = (int)((double)progress/goal * 100);
     }
 }

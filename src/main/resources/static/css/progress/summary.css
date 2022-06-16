@@ -142,7 +142,7 @@ ul.ks-cboxtags li input[type="hidden"]{
 
 .progress-wrapper .progress-bar{
     position: absolute;
-    width: 20%;
+    width: 0;
     background-color: #3071F2;
     border-radius: 20px;
     height: 100%;
