@@ -28,6 +28,11 @@ public class MemberService {
         }
     }
 
+    public Member findMemberByUsername(String username){
+        return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException(username + "에 해당하는 멤버를 찾지 못했습니다."));
+    }
+
     private boolean checkPassword(String request, String target){
         return target.equals(request);
     }

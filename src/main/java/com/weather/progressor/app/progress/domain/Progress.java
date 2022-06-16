@@ -67,4 +67,7 @@ public class Progress {
         return of(request.getGoalFigure(), request.getSubject(), member);
     }
 
+    public void stackFigure(int figure) {
+        this.figure += Math.min(0, figure);
+    }
 }

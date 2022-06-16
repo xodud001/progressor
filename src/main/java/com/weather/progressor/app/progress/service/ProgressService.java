@@ -1,6 +1,7 @@
 package com.weather.progressor.app.progress.service;
 
 import com.weather.progressor.app.member.domain.Member;
+import com.weather.progressor.app.member.service.MemberService;
 import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.CreateProgressRequest;
@@ -20,14 +21,17 @@ public class ProgressService {
 
     private final ProgressRepository progressRepository;
 
+    private final MemberService memberService;
+
     @Transactional(readOnly = true)
     public Progress getProgress(Long id){
         return progressRepository.findById(id)
                 .orElseThrow( () -> new ProgressNotFountException(id) );
     }
 
-    public long openProgress(CreateProgressRequest request){
-        Progress progress = Progress.of(request, Member.builder().username("EMTPY").password("EMPTY").build());
+    public long openProgress(CreateProgressRequest request, Member member){
+        Member findMember = memberService.findMemberByUsername(member.getUsername());
+        Progress progress = Progress.of(request, findMember);
         Progress savedProgress = progressRepository.save(progress);
         return savedProgress.getId();
     }

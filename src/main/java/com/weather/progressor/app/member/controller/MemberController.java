@@ -44,9 +44,8 @@ public class MemberController {
             session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
             return "redirect:/progress/calendar";
         }else{
-            return "member/signIpForm";
+            return "member/signInForm";
         }
-
     }
 
     @GetMapping("/signUp")
@@ -65,6 +64,12 @@ public class MemberController {
         }else {
             return "member/signUpForm";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.removeAttribute(SessionConst.LOGIN_MEMBER);
+        return "redirect:/signIn";
     }
 
 }

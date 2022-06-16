@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/base :: head(~{::link})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/summary.css}">
+</head>
+<body>
+
+<header th:replace="~{/layout/header :: header}">
+
+</header>
+<section class="main container-sm">
+    <div class="check-container">
+        <div class="btn-box">
+            <a class="btn btn-primary" th:href="@{/progress/create}">
+                생성하기
+            </a>
+            <a class="btn btn-primary">
+                기록하기
+            </a>
+        </div>
+
+        <form th:action th:object="${progress}" method="get">
+            <ul class="ks-cboxtags">
+                <li th:each="status : ${statuses}">
+                    <input type="checkbox" class="status-switch" th:field="*{statuses}" th:value="${status.key}" autocomplete="off" th:onclick="handle_checkbox()">
+                    <label th:for="${#ids.prev('statuses')}"
+                           th:text="${status.value}"></label>
+                </li>
+            </ul>
+        </form>
+
+        <ul class="progress-list">
+           <li th:each="progress : ${progress.progresses}">
+               <a th:href="@{/progress/id(id=${progress.id})}" class="progress-link"></a>
+               <div class="progress-context">
+                   <div class="subject-wrapper" >
+                       <div class="sub subject">
+                           Subject
+                       </div>
+                       <div class="main subject-value" th:text="${progress.object}">
+                       </div>
+                   </div>
+                   <div class="target-wrapper">
+                       <div class="sub target">
+                           Target
+                       </div>
+                       <div class="main target-value" th:text="${progress.goal}">
+                       </div>
+                   </div>
+                   <div class="current-wrapper" >
+                       <div class="sub current">
+                           Current
+                       </div>
+                       <div class="main subject-value" th:text="${progress.progress}">
+                       </div>
+                   </div>
+               </div>
+               <div class="progress-wrapper">
+                    <div class="progress-bar">
+
+                    </div>
+                   <div class="progress-background">
+
+                   </div>
+               </div>
+           </li>
+        </ul>
+    </div>
+</section>
+
+<script defer>
+    function handle_checkbox(){
+        const open = document.getElementById('statuses1')
+        const close = document.getElementById('statuses2')
+        const complete = document.getElementById('statuses3')
+
+        console.log(`open=${open.checked}, close=${close.checked}, complete=${complete.checked}`)
+    }
+</script>
+</body>
+</html>
