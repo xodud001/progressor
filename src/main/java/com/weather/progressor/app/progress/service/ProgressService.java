@@ -53,7 +53,7 @@ public class ProgressService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProgressDto> allProgress(Long memberId){
-        return progressRepository.findAllProgress(memberId);
+    public List<ProgressDto> allProgress(Long memberId, List<ProgressStatus> statuses){
+        return progressRepository.findAllProgress(memberId, statuses);
     }
 }

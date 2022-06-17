@@ -2,6 +2,7 @@ package com.weather.progressor.app.progress.repository;
 
 import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.progress.domain.Progress;
+import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.ProgressDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ class ProgressRepositoryTest {
         em.flush();
         em.clear();
 
-        List<ProgressDto> allProgress = progressRepository.findAllProgress(member.getId());
+        List<ProgressDto> allProgress = progressRepository.findAllProgress(member.getId(), List.of(ProgressStatus.OPENED));
 
         assertThat(allProgress.size()).isEqualTo(3);
     }

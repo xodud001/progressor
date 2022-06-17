@@ -66,27 +66,29 @@ public class ProgressController {
             @SessionAttribute(SessionConst.LOGIN_MEMBER) Member member,
             Model model){
 
-        List<ProgressDto> progressDtos = progressService.allProgress(member.getId());
+        List<ProgressStatus> statuses = getProgressStatuses(summaryRequest);
 
-        List<ProgressStatus> statuses;
-        if(summaryRequest.getStatuses() == null){
-            statuses = List.of(ProgressStatus.OPENED);
-        }else{
-            statuses = summaryRequest.getStatuses();
-        }
+        List<ProgressDto> progressDtos = progressService.allProgress(member.getId(), statuses);
 
         var progress = ProgressSummaryResponse.builder()
             .statuses(statuses)
             .progresses(progressDtos)
             .build();
 
-
-
         model.addAttribute("progress", progress);
         model.addAttribute("statuses", createStatusMap());
 
-
         return "/progress/summary";
+    }
+
+    private List<ProgressStatus> getProgressStatuses(ProgressSummaryRequest summaryRequest) {
+        List<ProgressStatus> statuses;
+        if(summaryRequest.getStatuses() == null){
+            statuses = List.of(ProgressStatus.OPENED);
+        }else{
+            statuses = summaryRequest.getStatuses();
+        }
+        return statuses;
     }
 
     private Map<ProgressStatus, String> createStatusMap() {
