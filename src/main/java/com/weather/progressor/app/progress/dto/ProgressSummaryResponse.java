@@ -1,4 +1,4 @@
-package com.weather.progressor.app.progress.controller;
+package com.weather.progressor.app.progress.dto;
 
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.ProgressDto;

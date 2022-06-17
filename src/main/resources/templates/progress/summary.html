@@ -19,7 +19,7 @@
             </a>
         </div>
 
-        <form th:action th:object="${progress}" method="get">
+        <form th:action th:object="${progress}" method="get" id="condition-form">
             <ul class="ks-cboxtags">
                 <li th:each="status : ${statuses}">
                     <input type="checkbox" class="status-switch" th:field="*{statuses}" th:value="${status.key}" autocomplete="off" th:onclick="handle_checkbox()">
@@ -31,7 +31,7 @@
 
         <ul class="progress-list">
            <li th:each="progress : ${progress.progresses}">
-               <a th:href="@{/progress/id(id=${progress.id})}" class="progress-link"></a>
+               <a th:href="@{/progress/{id}(id=${progress.id})}" class="progress-link"></a>
                <div class="progress-context">
                    <div class="subject-wrapper" >
                        <div class="sub subject">
@@ -66,11 +66,14 @@
 
 <script defer>
     function handle_checkbox(){
-        const open = document.getElementById('statuses1')
-        const close = document.getElementById('statuses2')
-        const complete = document.getElementById('statuses3')
+        const open = document.getElementById('statuses1');
+        const close = document.getElementById('statuses2');
+        const complete = document.getElementById('statuses3');
 
-        console.log(`open=${open.checked}, close=${close.checked}, complete=${complete.checked}`)
+        console.log(`open=${open.checked}, close=${close.checked}, complete=${complete.checked}`);
+
+        const conditionForm = document.getElementById("condition-form");
+        conditionForm.submit();
     }
 </script>
 </body>

@@ -3,11 +3,11 @@ package com.weather.progressor.app.progress.controller;
 import com.weather.progressor.app.calendar.MonthCalendar;
 import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.member.domain.SessionConst;
-import com.weather.progressor.app.member.service.MemberService;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.CreateProgressRequest;
 import com.weather.progressor.app.progress.dto.ProgressDto;
 import com.weather.progressor.app.progress.dto.ProgressSummaryRequest;
+import com.weather.progressor.app.progress.dto.ProgressSummaryResponse;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -68,12 +68,23 @@ public class ProgressController {
 
         List<ProgressDto> progressDtos = progressService.allProgress(member.getId());
 
+        List<ProgressStatus> statuses;
+        if(summaryRequest.getStatuses() == null){
+            statuses = List.of(ProgressStatus.OPENED);
+        }else{
+            statuses = summaryRequest.getStatuses();
+        }
+
         var progress = ProgressSummaryResponse.builder()
-            .statuses(List.of(ProgressStatus.OPENED))
+            .statuses(statuses)
             .progresses(progressDtos)
             .build();
+
+
+
         model.addAttribute("progress", progress);
         model.addAttribute("statuses", createStatusMap());
+
 
         return "/progress/summary";
     }

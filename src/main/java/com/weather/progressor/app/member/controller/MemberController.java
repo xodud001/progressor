@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,13 +37,17 @@ public class MemberController {
 
     @PostMapping("/signIn")
     public String signIn(@ModelAttribute("member") FormSignInRequest form, HttpServletRequest request) {
+
+        String redirectURL = request.getParameter("redirectURL");
+        String path = StringUtils.hasText(redirectURL) ? redirectURL : "/";
+
         HttpSession session = request.getSession();
 
         Member loginMember = memberService.signIn(Member.of(form));
 
         if(loginMember != null){
             session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-            return "redirect:/progress/calendar";
+            return "redirect:" + path;
         }else{
             return "member/signInForm";
         }
