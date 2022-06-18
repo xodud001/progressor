@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/base :: head(~{::link})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/detail.css}">
+</head>
+<body>
+
+<header th:replace="~{/layout/header :: header}">
+
+</header>
+<section class="main container-sm">
+    <form th:action th:object="${progress}" method="get" id="progress-form">
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" th:field="*{subject}" class="form-control" id="subject" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="goal" class="form-label">Target</label>
+            <input type="text" th:field="*{goal}" class="form-control" id="goal" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="progress" class="form-label">Current</label>
+            <input type="text" th:field="*{progress}" class="form-control" id="progress" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" th:field="*{status}" class="form-control" id="status" disabled>
+        </div>
+
+        <div class="btn-box">
+            <a class="btn btn-primary" th:href="@{/progress/{id}/edit(id=${progress.id})}">
+                수정하기
+            </a>
+            <a class="btn btn-secondary" th:href="@{/progress/summary}">
+                이전으로
+            </a>
+        </div>
+    </form>
+</section>
+
+<script defer>
+
+</script>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.weather.progressor.app.progress.controller;
 import com.weather.progressor.app.calendar.MonthCalendar;
 import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.member.domain.SessionConst;
+import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.CreateProgressRequest;
 import com.weather.progressor.app.progress.dto.ProgressDto;
@@ -42,14 +43,14 @@ public class ProgressController {
         model.addAttribute("today", today);
         model.addAttribute("next", target.plusMonths(1L));
 
-        return "/progress/calendar";
+        return "progress/calendar";
     }
 
     @GetMapping("/create")
     public String createForm(Model model){
 
         model.addAttribute("progress", new CreateProgressRequest());
-        return "/progress/createProgressForm";
+        return "progress/createProgressForm";
     }
 
     @PostMapping("/create")
@@ -78,7 +79,7 @@ public class ProgressController {
         model.addAttribute("progress", progress);
         model.addAttribute("statuses", createStatusMap());
 
-        return "/progress/summary";
+        return "progress/summary";
     }
 
     private List<ProgressStatus> getProgressStatuses(ProgressSummaryRequest summaryRequest) {
@@ -101,8 +102,13 @@ public class ProgressController {
 
 
     @GetMapping("/{id}")
-    public String detail(@PathVariable("id") Long id){
-        return "";
+    public String detail(@PathVariable("id") Long id, Model model){
+        Progress progress = progressService.getProgress(id);
+        ProgressDto progressDto = ProgressDto.of(progress);
+
+        model.addAttribute("progress", progressDto);
+
+        return "progress/detail";
     }
 
 }

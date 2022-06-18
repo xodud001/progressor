@@ -39,7 +39,7 @@ public class MemberController {
     public String signIn(@ModelAttribute("member") FormSignInRequest form, HttpServletRequest request) {
 
         String redirectURL = request.getParameter("redirectURL");
-        String path = StringUtils.hasText(redirectURL) ? redirectURL : "/";
+        String path = StringUtils.hasText(redirectURL) ? redirectURL : "/progress/calendar";
 
         HttpSession session = request.getSession();
 
