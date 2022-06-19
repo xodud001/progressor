@@ -31,7 +31,7 @@ public class ProgressController {
     private final ProgressService progressService;
 
     @GetMapping("/calendar")
-    public String calendar(@RequestParam(value = "targetDate", required = false) LocalDate targetParam, Model model){
+    public String calendar(@RequestParam(value = "targetDate", required = false) LocalDate targetParam, Model model) {
 
         LocalDate today = DateUtil.today();
         LocalDate target = targetParam == null ? today : targetParam;
@@ -47,7 +47,7 @@ public class ProgressController {
     }
 
     @GetMapping("/create")
-    public String createForm(Model model){
+    public String createForm(Model model) {
 
         model.addAttribute("progress", new CreateProgressRequest());
         return "progress/createProgressForm";
@@ -55,7 +55,7 @@ public class ProgressController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute("progress") CreateProgressRequest progress,
-                         @SessionAttribute(SessionConst.LOGIN_MEMBER) Member member){
+                         @SessionAttribute(SessionConst.LOGIN_MEMBER) Member member) {
 
         long savedId = progressService.openProgress(progress, member);
         return "redirect:/progress/summary";
@@ -65,16 +65,16 @@ public class ProgressController {
     public String summary(
             @ModelAttribute("summary") ProgressSummaryRequest summaryRequest,
             @SessionAttribute(SessionConst.LOGIN_MEMBER) Member member,
-            Model model){
+            Model model) {
 
         List<ProgressStatus> statuses = getProgressStatuses(summaryRequest);
 
         List<ProgressDto> progressDtos = progressService.allProgress(member.getId(), statuses);
 
         var progress = ProgressSummaryResponse.builder()
-            .statuses(statuses)
-            .progresses(progressDtos)
-            .build();
+                .statuses(statuses)
+                .progresses(progressDtos)
+                .build();
 
         model.addAttribute("progress", progress);
         model.addAttribute("statuses", createStatusMap());
@@ -84,9 +84,9 @@ public class ProgressController {
 
     private List<ProgressStatus> getProgressStatuses(ProgressSummaryRequest summaryRequest) {
         List<ProgressStatus> statuses;
-        if(summaryRequest.getStatuses() == null){
+        if (summaryRequest.getStatuses() == null) {
             statuses = List.of(ProgressStatus.OPENED);
-        }else{
+        } else {
             statuses = summaryRequest.getStatuses();
         }
         return statuses;
@@ -102,13 +102,31 @@ public class ProgressController {
 
 
     @GetMapping("/{id}")
-    public String detail(@PathVariable("id") Long id, Model model){
+    public String detail(@PathVariable("id") Long id, Model model) {
         Progress progress = progressService.getProgress(id);
         ProgressDto progressDto = ProgressDto.of(progress);
 
         model.addAttribute("progress", progressDto);
 
         return "progress/detail";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        Progress progress = progressService.getProgress(id);
+        ProgressDto progressDto = ProgressDto.of(progress);
+
+        model.addAttribute("progress", progressDto);
+        return "progress/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Progress progress = progressService.getProgress(id);
+        ProgressDto progressDto = ProgressDto.of(progress);
+
+        model.addAttribute("progress", progressDto);
+        return "progress/edit";
     }
 
 }

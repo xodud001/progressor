@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/base :: head(~{::link})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/detail.css}">
+</head>
+<body>
+
+<header th:replace="~{/layout/header :: header}">
+
+</header>
+<section class="main container-sm">
+    <form th:action th:object="${progress}" method="post" id="progress-form">
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" th:field="*{subject}" class="form-control" id="subject">
+        </div>
+        <div class="mb-3">
+            <label for="goal" class="form-label">Target</label>
+            <input type="text" th:field="*{goal}" class="form-control" id="goal">
+        </div>
+
+        <div class="btn-box">
+            <button class="btn btn-primary" type="submit" >
+                저장하기
+            </button>
+            <button class="btn btn-primary" >
+                목표 닫기
+            </button>
+            <button class="btn btn-primary" >
+                삭제하기
+            </button>
+            <a class="btn btn-secondary" th:href="@{/progress/{id}}">
+                이전으로
+            </a>
+        </div>
+    </form>
+    <form th:action="${'/progress/' + progress.id + '/close'}" >
+    </form>
+
+    <form th:action="${'/progress/' + progress.id + '/delete'}" >
+    </form>
+</section>
+
+<script defer>
+
+</script>
+</body>
+</html>

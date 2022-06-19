@@ -9,7 +9,7 @@
 
 </header>
 <section class="main container-sm">
-    <form th:action th:object="${progress}" method="get" id="progress-form">
+    <form th:action th:object="${progress}" method="post" id="progress-form">
         <div class="mb-3">
             <label for="subject" class="form-label">Subject</label>
             <input type="text" th:field="*{subject}" class="form-control" id="subject" disabled>
