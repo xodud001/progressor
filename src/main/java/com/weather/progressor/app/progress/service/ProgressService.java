@@ -36,7 +36,8 @@ public class ProgressService {
         return savedProgress.getId();
     }
 
-    public void deleteProgress(Progress progress){
+    public void deleteProgress(Long id){
+        Progress progress = getProgress(id);
         progress.delete();
     }
 
@@ -55,5 +56,10 @@ public class ProgressService {
     @Transactional(readOnly = true)
     public List<ProgressDto> allProgress(Long memberId, List<ProgressStatus> statuses){
         return progressRepository.findAllProgress(memberId, statuses);
+    }
+
+    public void toggleClose(Long id) {
+        Progress progress = getProgress(id);
+        progress.toggleClose();
     }
 }

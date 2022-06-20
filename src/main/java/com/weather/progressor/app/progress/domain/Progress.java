@@ -3,6 +3,7 @@ package com.weather.progressor.app.progress.domain;
 
 import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.progress.dto.CreateProgressRequest;
+import com.weather.progressor.app.progress.dto.ModifyProgressForm;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,6 +40,13 @@ public class Progress {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public static Progress of(ModifyProgressForm form) {
+        return builder()
+                .goal(form.getGoal())
+                .subject(form.getSubject())
+                .build();
+    }
+
     public void delete() {
         this.status = ProgressStatus.DELETED;
     }
@@ -69,5 +77,13 @@ public class Progress {
 
     public void stackProgress(int progress) {
         this.progress += Math.max(0, progress);
+    }
+
+    public void toggleClose() {
+        if(this.status == ProgressStatus.CLOSED){
+            this.status = ProgressStatus.OPENED;
+        }else{
+            this.status = ProgressStatus.CLOSED;
+        }
     }
 }

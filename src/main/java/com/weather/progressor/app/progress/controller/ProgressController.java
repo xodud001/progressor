@@ -5,10 +5,7 @@ import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.member.domain.SessionConst;
 import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
-import com.weather.progressor.app.progress.dto.CreateProgressRequest;
-import com.weather.progressor.app.progress.dto.ProgressDto;
-import com.weather.progressor.app.progress.dto.ProgressSummaryRequest;
-import com.weather.progressor.app.progress.dto.ProgressSummaryResponse;
+import com.weather.progressor.app.progress.dto.*;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -121,12 +118,24 @@ public class ProgressController {
     }
 
     @PostMapping("/{id}/edit")
-    public String edit(@PathVariable("id") Long id, Model model) {
-        Progress progress = progressService.getProgress(id);
-        ProgressDto progressDto = ProgressDto.of(progress);
+    public String edit(@PathVariable("id") Long id, @ModelAttribute ModifyProgressForm form, Model model) {
 
-        model.addAttribute("progress", progressDto);
-        return "progress/edit";
+        progressService.modifyProgress(id, Progress.of(form));
+
+        return "redirect:/progress/"+id;
     }
 
+    @PostMapping("/{id}/close")
+    public String close(@PathVariable("id") Long id, Model model) {
+        progressService.toggleClose(id);
+
+        return "redirect:/progress/" + id;
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Long id, Model model) {
+        progressService.deleteProgress(id);
+
+        return "redirect:/progress/summary";
+    }
 }

@@ -19,6 +19,7 @@ public class ProgressDto {
     private String subject;
     private ProgressStatus status;
     private int percent;
+    private boolean isClose;
 
     @QueryProjection
     public ProgressDto(Long id, int goal, int progress, String subject, ProgressStatus status) {
@@ -42,6 +43,7 @@ public class ProgressDto {
                 .subject(progress.getSubject())
                 .status(progress.getStatus())
                 .percent(calPercent(progress.getGoal(), progress.getProgress()))
+                .isClose(progress.getStatus().equals(ProgressStatus.CLOSED))
                 .build();
     }
 }
