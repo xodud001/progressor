@@ -39,7 +39,8 @@ public class MemberController {
     public String signIn(@ModelAttribute("member") FormSignInRequest form, HttpServletRequest request) {
 
         String redirectURL = request.getParameter("redirectURL");
-        String path = StringUtils.hasText(redirectURL) ? redirectURL : "/progress/calendar";
+        String path = StringUtils.hasText(redirectURL) || !redirectURL.equals("/") ? redirectURL : "/progress/calendar";
+
 
         HttpSession session = request.getSession();
 
@@ -73,7 +74,9 @@ public class MemberController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
-        request.removeAttribute(SessionConst.LOGIN_MEMBER);
+        HttpSession session = request.getSession();
+        session.invalidate();
+
         return "redirect:/signIn";
     }
 

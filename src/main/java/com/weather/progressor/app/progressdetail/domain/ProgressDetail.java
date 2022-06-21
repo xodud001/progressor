@@ -21,6 +21,7 @@ public class ProgressDetail {
     private Long id;
 
     private Instant recordAt; // 이벤트가 기록된 시점
+
     private int progressSlice; // 해당 이벤트로 추가되는 진척도 수치
 
     @ManyToOne
