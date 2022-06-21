@@ -31,7 +31,7 @@
             <a class="btn btn-primary" th:href="@{/progress/{id}/edit(id=${progress.id})}">
                 수정하기
             </a>
-            <a class="btn btn-primary" th:href="@{/detail/create}">
+            <a class="btn btn-primary" th:href="@{/detail/create(progress=${progress.id})}">
                 기록하기
             </a>
             <a class="btn btn-secondary" th:href="@{/progress/summary}">

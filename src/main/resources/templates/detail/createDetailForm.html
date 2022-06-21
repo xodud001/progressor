@@ -10,22 +10,22 @@
 <section class="main container-sm">
     <form th:action th:object="${detail}" method="post">
         <select class="form-select" th:field="*{progressId}" aria-label="Progress select" onchange="handleSelect(this)">
-            <option selected value="">목표 선택하기</option>
+            <option value="">목표 선택하기</option>
             <option th:each="progress : ${progresses}"
                     th:value="${progress.id}"
                     th:text="${progress.subject}"
+                    th:selected="${progress.id} == 1"
                     th:ptarget="${progress.goal}"
-                    th:pcurrent="${progress.progress}"
-                    onselect="handleSelect(this)"></option>
+                    th:pcurrent="${progress.progress}"></option>
         </select>
 
         <div class="mb-3" style="margin-top: 15px;">
             <label for="target" class="form-label">목표 수치</label>
-            <input type="number" class="form-control" id="target" placeholder="100" disabled>
+            <input type="number" th:value="${targetProgress.goal}" class="form-control" id="target" placeholder="100" disabled>
         </div>
         <div class="mb-3">
             <label for="current" class="form-label">현재 수치</label>
-            <input type="number" class="form-control" id="current" placeholder="100" disabled>
+            <input type="number" th:value="${targetProgress.progress}" class="form-control" id="current" placeholder="100" disabled>
         </div>
 
         <div class="mb-3">
