@@ -1,13 +1,17 @@
 package com.weather.progressor.app.progressdetail.service;
 
 import com.weather.progressor.app.progress.domain.Progress;
+import com.weather.progressor.app.progress.dto.ProgressDto;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.app.progressdetail.domain.ProgressDetail;
 import com.weather.progressor.app.progressdetail.dto.CreateDetailForm;
+import com.weather.progressor.app.progressdetail.dto.ProgressDetailDto;
 import com.weather.progressor.app.progressdetail.repository.ProgressDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +30,8 @@ public class ProgressDetailService {
     }
 
 
+    public List<ProgressDetailDto> getAllDetails(Long progressId) {
+        return detailRepository.allDetail(progressId);
+    }
 }
 

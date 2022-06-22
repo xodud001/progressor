@@ -39,6 +39,16 @@
             </a>
         </div>
     </form>
+    <div >
+        <div th:each="detail : ${details}">
+            <div>
+                날짜 : <span th:text="${detail.recordAt}"></span>
+            </div>
+            <div>
+                추가 : <span th:text="${detail.progressSlice}"></span>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script defer>
