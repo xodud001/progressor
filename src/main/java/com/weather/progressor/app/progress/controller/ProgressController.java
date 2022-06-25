@@ -8,6 +8,7 @@ import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.*;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.app.progressdetail.dto.ProgressDetailDto;
+import com.weather.progressor.app.progressdetail.dto.ProgressDetailResponse;
 import com.weather.progressor.app.progressdetail.service.ProgressDetailService;
 import com.weather.progressor.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -106,7 +108,9 @@ public class ProgressController {
         Progress progress = progressService.getProgress(id);
         ProgressDto progressDto = ProgressDto.of(progress);
 
-        List<ProgressDetailDto> details = detailService.getAllDetails(progress.getId());
+        var details = detailService.getAllDetails(progress.getId()).stream()
+                .map(ProgressDetailResponse::of)
+                .collect(Collectors.toList());
 
         model.addAttribute("progress", progressDto);
         model.addAttribute("details", details);
@@ -118,7 +122,8 @@ public class ProgressController {
     public String editForm(@PathVariable("id") Long id, Model model) {
         ProgressDto progressDto = progressService.getProgressDto(id);
 
-        List<ProgressDetailDto> details = detailService.getAllDetails(progressDto.getId());
+//        List<ProgressDetailDto> details = detailService.getAllDetails(progressDto.getId());
+
         model.addAttribute("progress", progressDto);
         return "progress/edit";
     }
