@@ -69,4 +69,9 @@ public class ProgressService {
         Progress progress = getProgress(id);
         progress.toggleClose();
     }
+
+    public void updateProgressValue(Long progressId, int value) {
+        Progress progress = getProgress(progressId);
+        progress.stackProgress(value);
+    }
 }

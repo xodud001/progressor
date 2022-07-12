@@ -7,7 +7,6 @@ import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.*;
 import com.weather.progressor.app.progress.service.ProgressService;
-import com.weather.progressor.app.progressdetail.dto.ProgressDetailDto;
 import com.weather.progressor.app.progressdetail.dto.ProgressDetailResponse;
 import com.weather.progressor.app.progressdetail.service.ProgressDetailService;
 import com.weather.progressor.util.DateUtil;

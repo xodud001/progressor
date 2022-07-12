@@ -5,6 +5,8 @@ import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progressdetail.domain.ProgressDetail;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ public class InitService {
     private final EntityManager em;
 
     @Transactional
+    @EventListener(ApplicationReadyEvent.class)
     public void init(){
         Member member = memberInit();
         progressInit(member);
