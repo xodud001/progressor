@@ -76,7 +76,7 @@ public class Progress {
     }
 
     public void stackProgress(int progress) {
-        this.progress += Math.max(0, progress);
+        this.progress += progress;
     }
 
     public void toggleClose() {

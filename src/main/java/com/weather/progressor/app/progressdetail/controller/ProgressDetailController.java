@@ -2,10 +2,14 @@ package com.weather.progressor.app.progressdetail.controller;
 
 import com.weather.progressor.app.member.domain.Member;
 import com.weather.progressor.app.member.domain.SessionConst;
+import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.ProgressDto;
 import com.weather.progressor.app.progress.service.ProgressService;
 import com.weather.progressor.app.progressdetail.dto.CreateDetailForm;
+import com.weather.progressor.app.progressdetail.dto.EditDetailForm;
+import com.weather.progressor.app.progressdetail.dto.ProgressDetailDto;
+import com.weather.progressor.app.progressdetail.dto.ProgressDetailResponse;
 import com.weather.progressor.app.progressdetail.service.ProgressDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,11 +31,11 @@ public class ProgressDetailController {
                              @RequestParam(value = "progress", required = false) Long progressId,
                              @SessionAttribute(SessionConst.LOGIN_MEMBER) Member member){
         List<ProgressDto> progresses = progressService.allProgress(member.getId(), List.of(ProgressStatus.OPENED));
+        ProgressDto targetProgress = findTargetProcess(progressId, progresses);
 
         CreateDetailForm createDetailForm = new CreateDetailForm();
         createDetailForm.setProgressId(progressId);
 
-        ProgressDto targetProgress = findTargetProcess(progressId, progresses);
 
         model.addAttribute("detail", createDetailForm);
         model.addAttribute("targetProgress", targetProgress);
@@ -43,6 +47,29 @@ public class ProgressDetailController {
     public String create(@ModelAttribute CreateDetailForm form){
         detailService.createDetail(form);
         return "redirect:/progress/" + form.getProgressId();
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id,
+                           @RequestParam("progressId") Long progressId,
+                           Model model) {
+        ProgressDto progress = ProgressDto.of(progressService.getProgress(progressId));
+        ProgressDetailResponse detail = ProgressDetailResponse.of(detailService.findById(id));
+
+        model.addAttribute("progress", progress);
+        model.addAttribute("detail", detail);
+
+        return "detail/editDetailForm";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id,
+                           @RequestParam("progressId") Long progressId,
+                           @ModelAttribute EditDetailForm form) {
+
+        detailService.updateDetail(id, form);
+
+        return "redirect:/progress/"+progressId;
     }
 
     private ProgressDto findTargetProcess(Long progressId, List<ProgressDto> progresses) {

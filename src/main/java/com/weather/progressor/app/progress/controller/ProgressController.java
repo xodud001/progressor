@@ -7,6 +7,8 @@ import com.weather.progressor.app.progress.domain.Progress;
 import com.weather.progressor.app.progress.domain.ProgressStatus;
 import com.weather.progressor.app.progress.dto.*;
 import com.weather.progressor.app.progress.service.ProgressService;
+import com.weather.progressor.app.progressdetail.dto.ProgressDetailResponse;
+import com.weather.progressor.app.progressdetail.service.ProgressDetailService;
 import com.weather.progressor.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -26,6 +29,7 @@ import java.util.Map;
 public class ProgressController {
 
     private final ProgressService progressService;
+    private final ProgressDetailService detailService;
 
     @GetMapping("/calendar")
     public String calendar(@RequestParam(value = "targetDate", required = false) LocalDate targetParam, Model model) {
@@ -103,15 +107,21 @@ public class ProgressController {
         Progress progress = progressService.getProgress(id);
         ProgressDto progressDto = ProgressDto.of(progress);
 
+        var details = detailService.getAllDetails(progress.getId()).stream()
+                .map(ProgressDetailResponse::of)
+                .collect(Collectors.toList());
+
         model.addAttribute("progress", progressDto);
+        model.addAttribute("details", details);
 
         return "progress/detail";
     }
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable("id") Long id, Model model) {
-        Progress progress = progressService.getProgress(id);
-        ProgressDto progressDto = ProgressDto.of(progress);
+        ProgressDto progressDto = progressService.getProgressDto(id);
+
+//        List<ProgressDetailDto> details = detailService.getAllDetails(progressDto.getId());
 
         model.addAttribute("progress", progressDto);
         return "progress/edit";

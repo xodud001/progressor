@@ -26,7 +26,7 @@ public class MemberController {
 
     @GetMapping("/")
     public String home(HttpServletResponse response) {
-        return "redirect:/progress/calendar";
+        return "redirect:/progress/summary";
     }
 
     @GetMapping("/signIn")
@@ -39,8 +39,7 @@ public class MemberController {
     public String signIn(@ModelAttribute("member") FormSignInRequest form, HttpServletRequest request) {
 
         String redirectURL = request.getParameter("redirectURL");
-        String path = StringUtils.hasText(redirectURL) || !redirectURL.equals("/") ? redirectURL : "/progress/calendar";
-
+        String path = StringUtils.hasText(redirectURL) && !redirectURL.equals("/") ? redirectURL : "/progress/summary";
 
         HttpSession session = request.getSession();
 

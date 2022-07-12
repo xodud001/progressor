@@ -35,4 +35,10 @@ public class ProgressDetail {
                 .progress(progress)
                 .build();
     }
+
+    public void updateSlice(int value){
+        if(value >= 0){
+            progressSlice = value;
+        }
+    }
 }

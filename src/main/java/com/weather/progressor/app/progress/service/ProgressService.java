@@ -24,9 +24,16 @@ public class ProgressService {
     private final MemberService memberService;
 
     @Transactional(readOnly = true)
+    public ProgressDto getProgressDto(Long id){
+        Progress progress = progressRepository.findById(id)
+                .orElseThrow(() -> new ProgressNotFountException(id));
+        return ProgressDto.of(progress);
+    }
+
+    @Transactional(readOnly = true)
     public Progress getProgress(Long id){
         return progressRepository.findById(id)
-                .orElseThrow( () -> new ProgressNotFountException(id) );
+                .orElseThrow(() -> new ProgressNotFountException(id));
     }
 
     public long openProgress(CreateProgressRequest request, Member member){
@@ -61,5 +68,10 @@ public class ProgressService {
     public void toggleClose(Long id) {
         Progress progress = getProgress(id);
         progress.toggleClose();
+    }
+
+    public void updateProgressValue(Long progressId, int value) {
+        Progress progress = getProgress(progressId);
+        progress.stackProgress(value);
     }
 }

@@ -39,6 +39,17 @@
             </a>
         </div>
     </form>
+    <div class="detail-list">
+        <div th:each="detail : ${details}" class="detail">
+            <a th:href="@{/detail/{id}/edit(id=${detail.id},progressId=${progress.id})}"></a>
+            <div class="date">
+                <span th:text="${detail.recordAt}"></span>
+            </div>
+            <div class="figure">
+                <span th:text="${detail.progressSlice}"></span>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script defer>
