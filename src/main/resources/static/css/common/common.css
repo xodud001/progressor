@@ -1,0 +1,21 @@
+* {
+    font-family:'Noto Sans KR', sans-serif !important;
+    box-sizing: border-box;
+}
+
+* :focus {
+    outline: 0 !important;
+}
+
+button {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color : black;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/base :: head(~{::link})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/detail.css}">
+</head>
+<body>
+
+<header th:replace="~{/layout/header :: header}">
+
+</header>
+<section class="main container-sm">
+    <form th:action th:object="${progress}" method="post" id="progress-form">
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" th:field="*{subject}" class="form-control" id="subject" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="goal" class="form-label">Target</label>
+            <input type="text" th:field="*{goal}" class="form-control" id="goal" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="progress" class="form-label">Current</label>
+            <input type="text" th:field="*{progress}" class="form-control" id="progress" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" th:field="*{status}" class="form-control" id="status" disabled>
+        </div>
+
+        <div class="btn-box">
+            <a class="btn btn-primary" th:href="@{/progress/{id}/edit(id=${progress.id})}">
+                수정하기
+            </a>
+            <a class="btn btn-primary" th:href="@{/detail/create(progress=${progress.id})}">
+                기록하기
+            </a>
+            <a class="btn btn-secondary" th:href="@{/progress/summary}">
+                목록으로
+            </a>
+        </div>
+    </form>
+    <div class="detail-list">
+        <div th:each="detail : ${details}" class="detail">
+            <a th:href="@{/detail/{id}/edit(id=${detail.id},progressId=${progress.id})}"></a>
+            <div class="date">
+                <span th:text="${detail.recordAt}"></span>
+            </div>
+            <div class="figure">
+                <span th:text="${detail.progressSlice}"></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script defer>
+
+</script>
+</body>
+</html>

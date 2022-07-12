@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/base :: head(~{::link})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/detail/editDetailForm.css}">
+</head>
+<body>
+
+<header th:replace="~{/layout/header :: header}">
+</header>
+<section class="main container-sm">
+    <form th:action th:object="${detail}" method="post">
+
+        <div class="mb-3" style="margin-top: 15px;">
+            <label for="title" class="form-label">목표 이름</label>
+            <input type="text" th:value="${progress.subject}" class="form-control" id="title" disabled>
+        </div>
+        <div class="mb-3" style="margin-top: 15px;">
+            <label for="target" class="form-label">목표 수치</label>
+            <input type="number" th:value="${progress.goal}" class="form-control" id="target" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="current" class="form-label">현재 수치</label>
+            <input type="number" th:value="${progress.progress}" class="form-control" id="current" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="figure" class="form-label">변경할 수치</label>
+            <input type="number" th:field="*{progressSlice}" class="form-control" id="figure" placeholder="100">
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary form-control">수정하기</button>
+            <a class="btn btn-secondary form-control" th:href="@{/progress/summary}" style="margin-top: 15px;">
+                목록으로
+            </a>
+        </div>
+    </form>
+</section>
+
+</body>
+</html>

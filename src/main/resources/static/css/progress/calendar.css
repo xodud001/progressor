@@ -1,0 +1,112 @@
+@import "/css/common/common.css";
+
+.main{
+    padding-top: 40px;
+}
+
+.title{
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+}
+
+.title .title-left{
+    display: flex;
+}
+
+.title .title-left .date{
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin-right: 15px;
+    width: 145px;
+}
+
+.title .title-left .controller{
+    display: flex;
+    align-items: center;
+}
+
+.title .title-left .controller a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #a0a0a0;
+    font-size: 16px;
+    height: 25px;
+}
+
+.title .title-left .controller a:first-child, .title .controller a:last-child{
+    width: 25px;
+}
+
+.title .title-left .controller a:nth-child(2) {
+    width: 50px;
+}
+
+.title .title-right{
+    display: flex;
+}
+
+.calender{
+    display: flex;
+    flex-direction: column;
+}
+
+.calender .week{
+    display: flex;
+    flex-direction: row;
+}
+
+.calender .week .day {
+    width: calc(100% / 7);
+    height: 120px;
+    border-top: 1px solid #cbcbcb;
+    border-left: 1px solid #cbcbcb;
+}
+
+.calender .week:last-child .day{
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.calender .week .day:last-child{
+    border-right: 1px solid #cbcbcb;
+}
+
+.calender .week .day .day-box{
+    font-size: 16px;
+    color: #a5a5a5;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    height: 27px;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 2px;
+}
+
+.calender .week .day .target-month{
+    color: black;
+}
+
+.calender .week .day .target-month .today-box{
+    color: black;
+}
+
+.calender .week .day .today-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calender .week .day .today{
+    background-color: red;
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+}
+
+.calender .week .day .today .month-value{
+    color: white;
+}

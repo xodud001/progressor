@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/base :: head(~{::link})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/progress/edit.css}">
+</head>
+<body>
+
+<header th:replace="~{/layout/header :: header}">
+
+</header>
+<section class="main container-sm">
+    <form th:action th:object="${progress}" method="post" id="progress-form">
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" th:field="*{subject}" class="form-control" id="subject">
+        </div>
+        <div class="mb-3">
+            <label for="goal" class="form-label">Target</label>
+            <input type="text" th:field="*{goal}" class="form-control" id="goal">
+        </div>
+
+        <div class="btn-box">
+            <button class="btn btn-primary" type="submit" >
+                저장하기
+            </button>
+            <a class="btn btn-primary" th:text="${progress.isClose ? '목표 열기' : '목표 닫기'}" onclick="handleStatusToggle()">
+                목표 닫기
+            </a>
+            <a class="btn btn-danger" onclick="handleDelete()">
+                삭제하기
+            </a>
+            <a class="btn btn-secondary" th:href="@{/progress/{id}}">
+                목록으로
+            </a>
+        </div>
+    </form>
+    <form th:action="${'/progress/' + progress.id + '/close'}" id="close-form" method="post">
+    </form>
+
+    <form th:action="${'/progress/' + progress.id + '/delete'}" id="delete-form" method="post">
+    </form>
+</section>
+
+<script defer>
+    function handleStatusToggle(){
+        document.getElementById('close-form').submit();
+
+    }
+    function handleDelete(){
+        document.getElementById('delete-form').submit();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+header {
+    border-bottom: 1px solid #e3e3e3;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) ;
+}
+
+header .header{
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    align-items: center;
+}
+
+header .left{
+    display: flex;
+}
+
+header .left .logo{
+    margin-right: 15px;
+}
+
+header .left .logo .logo-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #482EF2;
+}
+
+header .left .gnb{
+    display: flex;
+}
+
+header .left .gnb li{
+    margin-left: 30px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+header .left .gnb li a {
+    color: rgba(0, 0, 0, 0.6);
+    transition: all 0.15s ease-in;
+}
+
+header .left .gnb li a:hover{
+    color: black;
+}
+
+header .right{
+    display: flex;
+}
+
+header .right a{
+    border: 0px solid white !important;
+}
+
+header .right .sign-up{
+    background-color: #7663F2;
+    color: white;
+    margin-left: 10px;
+}
+

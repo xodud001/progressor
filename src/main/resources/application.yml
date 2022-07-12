@@ -1,7 +1,13 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      tracking-modes: cookie
 
 spring:
   application:
     name: Progressor Application
+
 
   datasource:
     url: jdbc:mysql://localhost:3316/progress
@@ -19,9 +25,9 @@ spring:
         format_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
+  thymeleaf:
+    cache: false
 #logging.level:
 #  org.hibernate.SQL: debug
 #  org.hibernate.type : trace
 
-server:
-  port: 8080

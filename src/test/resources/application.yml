@@ -1,3 +1,8 @@
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+
 spring:
   config:
     activate:
@@ -17,5 +22,3 @@ spring:
   sql:
     init:
       mode: embedded
-#      schema-locations: classpath:schema-h2.sql
-#      data-locations: classpath:data-h2.sql
